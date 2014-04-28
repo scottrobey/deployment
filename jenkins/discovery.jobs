@@ -1,0 +1,17 @@
+-- discovery-tes
+#!/usr/bin/env bash -l
+rvm use 1.9.3
+rm Gemfile.lock
+bundle install
+RAILS_ENV=test bundle exec rake db:migrate
+RAILS_ENV=test bundle exec rake spec:javascript
+
+-- discovery-dist
+#!/usr/bin/env bash -l
+./build-discovery.sh
+
+-- discovery-acceptance-test
+#!/usr/bin/env bash -l
+rvm use 1.9.3
+rm Gemfile.lock
+bundle exec cucumber -p acceptance
